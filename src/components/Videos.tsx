@@ -9,14 +9,20 @@ function Videos(props: VideosProperties) {
 
     const movie: string[] = ['deadpool3', 'fnafMovie', 'vaiana2', 'joker2', 'despicableMe4', 'redOne'];
 
-    function setBiggerIMG(e: Event) {
-        e.target.style.width = '350px';
-        e.target.style.height = '200px';
-    }
-    function setSmallerIMG(e: Event) {
-        e.target.style.width = '300px';
-        e.target.style.height = '150px';
-    }
+    function setBiggerIMG(e: React.MouseEvent<HTMLImageElement>) {
+        const target = e.target as HTMLImageElement;
+        if (target) {
+          target.style.width = '350px';
+          target.style.height = '200px';
+        }
+      }
+      function setSmallerIMG(e: React.MouseEvent<HTMLImageElement>) {
+        const target = e.target as HTMLImageElement;
+        if (target) {
+          target.style.width = '300px';
+          target.style.height = '150px';
+        }
+      }
 
     return(
         <section className="video-section">
