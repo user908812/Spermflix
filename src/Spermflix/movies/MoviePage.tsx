@@ -1,8 +1,8 @@
-import Header from "../Header";
-import Footer from "../Footer";
 import { useParams } from "react-router-dom";
-import MovieNotFound from "../errors/MovieNotFound";
-import Movie from "../Movie";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Movie from "../../components/Movie";
+import MovieNotFound from "../../components/errors/MovieNotFound";
 
 function MoviePage() {
 

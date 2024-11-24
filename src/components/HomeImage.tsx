@@ -5,6 +5,8 @@ import InfoIcon from '../assets/images/info-icon.png'
 import { Link } from 'react-router-dom'
 
 interface ImageProps {
+    id: string;
+    movieInfo: string;
     src: string;
     movie: string;
     makeDate: string;
@@ -13,8 +15,6 @@ interface ImageProps {
 }
 
 function HomeImage(props: ImageProps) {
-
-    const venom3Info: string = 'Full name: Venom: The Last Dance,\nRelease date: 2024-10-25,\nLength: 140min,\nRelease locations: Los Angeles, London, New York, Spain,\nAge category: PG-13';
 
     function getNumberOfStars() {
         switch (props.rating) {
@@ -79,10 +79,9 @@ function HomeImage(props: ImageProps) {
                 <div id='home-page-movie-description'>{props.desc}</div>
 
                 <div id='home-page-buttons'>
-                    <Link style={{textDecoration: 'none'}} to="/movies/venom3"><button id='home-page-play-button'><div><img id='home-page-play-icon' src={PlayIcon} alt="play-icon" /></div><div id='home-page-play-title'>Play</div></button></Link>
-                    <button id='home-page-info-button' onClick={() => alert(venom3Info)}><div><img id='home-page-info-icon' src={InfoIcon} alt="info-icon" /></div><div id='home-page-info-title'>More Info</div></button>
+                    <Link style={{textDecoration: 'none'}} to={`./movies/${props.id}`}><button id='home-page-play-button'><div><img id='home-page-play-icon' src={PlayIcon} alt="play-icon" /></div><div id='home-page-play-title'>Play</div></button></Link>
+                    <button id='home-page-info-button' onClick={() => alert(props.movieInfo)}><div><img id='home-page-info-icon' src={InfoIcon} alt="info-icon" /></div><div id='home-page-info-title'>More Info</div></button>
                 </div>
-
             </div>
         </div>
     );

@@ -2,24 +2,29 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import MoviePage from './components/movies/MoviePage.tsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import MoviePage from './Spermflix/movies/MoviePage.tsx'
 import NotFound from './components/errors/NotFound.tsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+window.addEventListener('contextmenu', e => e.preventDefault());
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/Spermflix',
     element: <App />,
     errorElement: <NotFound />
   },
   {
-    path: '/movies',
+    path: '/Spermflix/*',
+    element: <NotFound />
+  },
+  {
+    path: 'Spermflix/movies',
     element: <MoviePage />,
   },
   {
-    path: '/movies/:movieId',
-    element: <MoviePage />,
-    errorElement: <NotFound />
+    path: 'Spermflix/movies/:movieId',
+    element: <MoviePage />
   },
 ]);
 
