@@ -11,7 +11,6 @@ function Header() {
 
     const [userName, setUserName] = useState<string>(defaultName);
     const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false);
-    const [loginDialogVisible, setLoginDialogVisible] = useState<boolean>(false);
     const inputRef = useRef<any>(null);
 
     const toggleSearchBar = (): void => setSearchBarVisible(!searchBarVisible);
