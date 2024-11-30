@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import MoviePage from './Spermflix/movies/MoviePage.tsx'
 import NotFound from './components/errors/NotFound.tsx'
+import Films from './Spermflix/films/Films.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 window.addEventListener('contextmenu', e => e.preventDefault());
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
   {
     path: 'Spermflix/movies/:movieId',
     element: <MoviePage />
+  },
+  {
+    path: '/Spermflix/films',
+    element: <Films />,
+    errorElement: <NotFound />
   },
 ]);
 

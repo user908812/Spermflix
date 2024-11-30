@@ -7,15 +7,18 @@ import { Link } from "react-router-dom";
 export type Movie = 'venom3' | 'despicableMe4' | 'deadpool3' | 'fnafMovie' | 'vaiana2' | 'joker2' | 'redOne';
 
 function Header() {
-    const [userName, setUserName] = useState<string>('xxx xxxx');
+    const defaultName: string = 'xxx xxxx';
+
+    const [userName, setUserName] = useState<string>(defaultName);
     const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false);
+    const [loginDialogVisible, setLoginDialogVisible] = useState<boolean>(false);
     const inputRef = useRef<any>(null);
 
-    const toggleSearchBar = () => setSearchBarVisible(!searchBarVisible);
+    const toggleSearchBar = (): void => setSearchBarVisible(!searchBarVisible);
     
-    function username(username: string | null, minMax: [number, number]) {
-        const randomUsername = `user${Math.floor(Math.random() * 9)}`;
-        const shortenUsername = username?.slice(0, minMax[1]);
+    function username(username: string | null, minMax: [number, number]): string | undefined {
+        const randomUsername: string = `user${Math.floor(Math.random() * 9)}`;
+        const shortenUsername: string | undefined = username?.slice(0, minMax[1]);
 
         if (typeof username !== 'string') return randomUsername;
 
@@ -33,17 +36,18 @@ function Header() {
     }
 
     function changeUserName(): void {
-        const usernameFromUser = username(prompt('Enter an username (8 characters max): '), [3, 8]);
-        usernameFromUser && setUserName(usernameFromUser);
+        const maxLength: number = 8;
+        const usernameFromUser: string | undefined = username(prompt(`Enter an username (${maxLength} characters max): `), [3, maxLength]);
+        usernameFromUser && setUserName(typeof usernameFromUser === 'undefined' ? defaultName : usernameFromUser);
     }
     
-    function isIncluding(keywords: Array<string>, movieToOpen: Movie, target: HTMLInputElement): void {
+    function isIncluding(keywords: Array<string>, movieToOpen: Movie, target: HTMLInputElement, delay?: number): void {
         keywords.forEach(keyword => {
             if (target.value.includes(keyword)) {
-                setTimeout(() => {
+                setTimeout((): void => {
                     open(`Spermflix/movies/${movieToOpen}`, '_self');
                     target.value = '';
-                }, 300);
+                }, !delay ? 300 : delay);
             }
         })
     }
@@ -78,7 +82,7 @@ function Header() {
                     <ul>
                         <li className="home-button-for-my-list"><Link to="/Spermflix">Home</Link></li>
                         <li><Link to="#">Series</Link></li>
-                        <li><Link to="#">Films</Link></li>
+                        <li><Link to="/Spermflix/Films">Films</Link></li>
                         <li><Link to="#">Latest</Link></li>
                         <li className="my-videos-list-button"><Link to="#">My list</Link></li>
                     </ul>
@@ -89,7 +93,7 @@ function Header() {
             <div><img onClick={toggleSearchBar} id="searchBarToggleButton" src={LoupeIcon} alt="loupe-icon" draggable={false} /></div>
             <div id="usernameDisplay" onClick={changeUserName}>{userName}</div>
             <div><img onClick={() => alert('Notifications not found.')} id="notificationBellButton" src={NotificationIcon} alt="notification-icon" draggable={false} /></div>
-            <div><img onClick={() => alert('Soon.')} id="userProfileIcon" src={DefaultAvatarIcon} alt="user-pfp-icon" draggable={false} /></div>
+            <div><img id="userProfileIcon" src={DefaultAvatarIcon} alt="user-pfp-icon" draggable={false} /></div>
         </header>
     );
 

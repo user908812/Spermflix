@@ -16,8 +16,9 @@ class Notif {
     constructor(message: string, description: string, icon?: string) {
         this.message = message;
         this.description = description;
+        this.icon = icon;
     }
-    create() {
+    create(): void {
         Notification.requestPermission().then(perm => {
             perm === 'granted' && new Notification(this.message, {
                 body: this.description,
@@ -27,37 +28,48 @@ class Notif {
     }
 }
 
-function notify(message: string, description: string, icon: string = OrangeNotificationIcon): void {
+export function notify(message: string, description: string, icon: string = OrangeNotificationIcon): void {
     new Notif(message, description, icon).create();
 }
+
+export const movie: string[] = [
+    'deadpool3', 
+    'fnafMovie', 
+    'vaiana2', 
+    'joker2', 
+    'despicableMe4', 
+    'redOne'
+];
 
 function Videos(props: VideosProperties) {
     
     const [toggleFavVideos, setToggleFavVideos] = useState<boolean>(false);
     const [favouriteVideos, setFavouriteVideos] = useState<Movie[]>(['venom3']);
 
-    const movie: string[] = ['deadpool3', 'fnafMovie', 'vaiana2', 'joker2', 'despicableMe4', 'redOne'];
-
     document.querySelector<HTMLLIElement>('.my-videos-list-button')?.addEventListener('click', () => setToggleFavVideos(!toggleFavVideos));
-    document.querySelector<HTMLLIElement>('.home-button-for-my-list')?.addEventListener('click', () => setToggleFavVideos(favVid => favVid = false));
+    document.querySelector<HTMLLIElement>('.home-button-for-my-list')?.addEventListener('click', () => setToggleFavVideos(false));
 
-    function setBiggerIMG(e: React.MouseEvent<HTMLImageElement>) {
+    function setBiggerIMG(e: React.MouseEvent<HTMLImageElement>): void {
         const target = e.target as HTMLImageElement;
         if (target) {
-          target.style.width = '350px';
-          target.style.height = '200px';
+          setTimeout(() => {
+            target.style.width = '330px';
+            target.style.height = '180px';
+          }, 200);
         }
       }
 
-      function setSmallerIMG(e: React.MouseEvent<HTMLImageElement>) {
+      function setSmallerIMG(e: React.MouseEvent<HTMLImageElement>): void {
         const target = e.target as HTMLImageElement;
         if (target) {
-          target.style.width = '300px';
-          target.style.height = '150px';
+          setTimeout(() => {
+            target.style.width = '300px';
+            target.style.height = '150px';
+          }, 250);
         }
       }
 
-      function movieRightClick(movieID: number, movieName: Movie) {
+      function movieRightClick(movieID: number, movieName: Movie): void {
             notify('Success!', `Added ${props.videos[movieID].name} to favourites.`);
             setFavouriteVideos([...favouriteVideos, movieName]);
       }
@@ -74,17 +86,17 @@ function Videos(props: VideosProperties) {
       function checkVideosByFavVid(favVideo: Movie, index: number) {
             switch (favVideo) {
                 case 'deadpool3':
-                    return getFavVid(props.videos[0].src, 0, index, favVideo)
+                    return getFavVid(props.videos[0].src, 0, index, favVideo);
                 case 'fnafMovie':
-                    return getFavVid(props.videos[1].src, 1, index, favVideo)
+                    return getFavVid(props.videos[1].src, 1, index, favVideo);
                 case 'vaiana2':
-                    return getFavVid(props.videos[2].src, 2, index, favVideo)
+                    return getFavVid(props.videos[2].src, 2, index, favVideo);
                 case 'joker2':
-                    return getFavVid(props.videos[3].src, 3, index, favVideo)
+                    return getFavVid(props.videos[3].src, 3, index, favVideo);
                 case 'despicableMe4':
-                    return getFavVid(props.videos[4].src, 4, index, favVideo)
+                    return getFavVid(props.videos[4].src, 4, index, favVideo);
                 case 'redOne':
-                    return getFavVid(props.videos[5].src, 5, index, favVideo)
+                    return getFavVid(props.videos[5].src, 5, index, favVideo);
             }
       }
 
@@ -119,9 +131,7 @@ function Videos(props: VideosProperties) {
             ) :
             (
             <div>    
-                {favouriteVideos.map((favVideo, index) => (
-                    checkVideosByFavVid(favVideo, index)
-                ))}
+                {favouriteVideos.map((favVideo, index) => checkVideosByFavVid(favVideo, index))}
             </div>
             )}
         </>

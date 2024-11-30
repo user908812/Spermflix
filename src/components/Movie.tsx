@@ -1,3 +1,3 @@
 export default function Movie(props: {url: string}) {
-    return <div className="display-video-container"><iframe style={{border: 'none'}} src={props.url} width="1600" height="900" allowFullScreen={true} scrolling="no"></iframe></div>
+    return <div className="display-video-container"><iframe style={{border: 'none', width: '1600px', height: '900px'}} src={props.url} allowFullScreen={true} scrolling="no"></iframe></div>
 }
